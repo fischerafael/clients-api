@@ -7,3 +7,7 @@ export interface IClient {
   email: string;
   phone: string;
 }
+
+export interface ICreateClient {
+  (payload: IClient): Promise<{ id: string }>;
+}
