@@ -15,6 +15,7 @@ import {
   ICreateClient,
   IDeleteClient,
   IDetailClient,
+  IDetailClientByEmail,
   IListClients,
   IUpdateClient,
 } from "../entities/Client";
@@ -43,6 +44,23 @@ export const detailClient: IDetailClient = async (payload) => {
   return data as IClient;
 };
 
+export const detailClientByEmail: IDetailClientByEmail = async (payload) => {
+  const q = query(
+    collection(db, "clients"),
+    where("email", "==", payload.email)
+  );
+  const querySnapshot = await getDocs(q);
+  const clientsList: IClient[] = [];
+  querySnapshot.forEach((doc) => {
+    const id = doc.id;
+    const data = doc.data();
+    clientsList.push({ id: id, ...data } as IClient);
+  });
+
+  console.log(clientsList);
+  return clientsList[0];
+};
+
 export const updatedClient: IUpdateClient = async (payload) => {
   const docRef = doc(db, "clients", payload.id!);
   await setDoc(docRef, payload);
@@ -62,4 +80,5 @@ export const respository = {
   detailClient,
   updatedClient,
   deleteClient,
+  detailClientByEmail,
 };

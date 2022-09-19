@@ -21,6 +21,10 @@ export interface IDetailClient {
   ({ id }: { id: string }): Promise<IClient>;
 }
 
+export interface IDetailClientByEmail {
+  ({ email }: { email: string }): Promise<IClient>;
+}
+
 export interface IUpdateClient {
   (payload: IClient): Promise<IClient>;
 }
