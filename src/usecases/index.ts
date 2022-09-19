@@ -36,13 +36,6 @@ export const detailClient: IDetailClient = async (payload) => {
 };
 
 export const updatedClient: IUpdateClient = async (payload) => {
-  const exists = await respository.detailClientByEmail({
-    email: payload.email,
-  });
-
-  if (exists) {
-    throw new Error("Client with this email already exists");
-  }
   const response = await respository.updatedClient(payload);
   return response;
 };
