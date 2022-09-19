@@ -1,18 +1,22 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
   query,
+  setDoc,
   where,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import {
   IClient,
   ICreateClient,
+  IDeleteClient,
   IDetailClient,
   IListClients,
+  IUpdateClient,
 } from "../entities/Client";
 
 export const createClient: ICreateClient = async (payload) => {
@@ -39,4 +43,23 @@ export const detailClient: IDetailClient = async (payload) => {
   return data as IClient;
 };
 
-export const respository = { createClient, listClients, detailClient };
+export const updatedClient: IUpdateClient = async (payload) => {
+  const docRef = doc(db, "clients", payload.id!);
+  await setDoc(docRef, payload);
+
+  const response = respository.detailClient({ id: payload.id! });
+  return response;
+};
+
+export const deleteClient: IDeleteClient = async (payload) => {
+  const docRef = doc(db, "clients", payload.id!);
+  await deleteDoc(docRef);
+};
+
+export const respository = {
+  createClient,
+  listClients,
+  detailClient,
+  updatedClient,
+  deleteClient,
+};

@@ -20,3 +20,11 @@ export interface IListClients {
 export interface IDetailClient {
   ({ id }: { id: string }): Promise<IClient>;
 }
+
+export interface IUpdateClient {
+  (payload: IClient): Promise<IClient>;
+}
+
+export interface IDeleteClient {
+  ({ id }: { id: string }): Promise<void>;
+}

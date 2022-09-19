@@ -1,4 +1,9 @@
-import { ICreateClient, IDetailClient, IListClients } from "../entities/Client";
+import {
+  ICreateClient,
+  IDetailClient,
+  IListClients,
+  IUpdateClient,
+} from "../entities/Client";
 import { respository } from "../repositories";
 
 export const createClient: ICreateClient = async (payload) => {
@@ -16,8 +21,14 @@ export const detailClient: IDetailClient = async (payload) => {
   return response;
 };
 
+export const updatedClient: IUpdateClient = async (payload) => {
+  const response = await respository.updatedClient(payload);
+  return response;
+};
+
 export const useCase = {
   createClient,
   listClients,
   detailClient,
+  updatedClient,
 };

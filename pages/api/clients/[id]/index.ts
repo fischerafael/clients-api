@@ -6,7 +6,15 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const { query } = req;
+    const { query, method, body } = req;
+
+    if (method === "PUT") {
+      const response = await useCase.updatedClient({
+        id: query.id as string,
+        ...body,
+      });
+      return res.status(200).json({ response });
+    }
 
     const response = await useCase.detailClient({
       id: query.id as string,
