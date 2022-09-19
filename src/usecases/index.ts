@@ -1,5 +1,6 @@
 import {
   ICreateClient,
+  IDeleteClient,
   IDetailClient,
   IListClients,
   IUpdateClient,
@@ -26,9 +27,15 @@ export const updatedClient: IUpdateClient = async (payload) => {
   return response;
 };
 
+export const deleteClient: IDeleteClient = async (payload) => {
+  const response = await respository.deleteClient(payload);
+  return response;
+};
+
 export const useCase = {
   createClient,
   listClients,
   detailClient,
   updatedClient,
+  deleteClient,
 };

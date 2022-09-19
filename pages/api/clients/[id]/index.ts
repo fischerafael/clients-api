@@ -16,6 +16,13 @@ export default async function handler(
       return res.status(200).json({ response });
     }
 
+    if (method === "DELETE") {
+      await useCase.deleteClient({
+        id: query.id as string,
+      });
+      return res.status(200).json({ message: "Ok" });
+    }
+
     const response = await useCase.detailClient({
       id: query.id as string,
     });
